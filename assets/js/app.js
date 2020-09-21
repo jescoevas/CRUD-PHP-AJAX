@@ -34,8 +34,8 @@ let renderizar = (data) => {
                         <p>${art.cuerpo}</p>
                         <footer class="blockquote-footer">
                             ${art.autor}
-                            <i class="fa fa-pencil mx-1" onclick="editar(${art.id},'${art.autor}','${art.titulo}','${art.cuerpo}')"></i>
-                            <i class="fa fa-trash mx-1" onclick="eliminar(${art.id})"></i>
+                            <i class="fa fa-pencil mx-1" style="cursor: pointer;" onclick="editar(${art.id},'${art.autor}','${art.titulo}','${art.cuerpo}')"></i>
+                            <i class="fa fa-trash mx-1" style="cursor: pointer;" onclick="eliminar(${art.id})"></i>
                         </footer>
                     </blockquote>
                 </div>
