@@ -29,6 +29,7 @@
     </div>
 
     <form id="form" autocomplete="off">
+        <input type="hidden" id="id">
         <div class="form-group">
             <label>Autor</label>
             <input type="text" class="form-control" id="autor">
@@ -41,7 +42,14 @@
             <label>Cuerpo</label>
             <textarea class="form-control" id="cuerpo" cols="30" rows="10"></textarea>
         </div>
-        <button type="submit" class="btn btn-success btn-block">Enviar</button>
+        <div class="from-group row">
+            <div class="col">
+                <button type="submit" class="btn btn-success btn-block">Enviar</button>
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-success btn-block" onclick="vaciar()">Nuevo</button>
+            </div>
+        </div>
     </form>
     <hr>
 

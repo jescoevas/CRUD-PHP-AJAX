@@ -1,8 +1,6 @@
 $(document).ready(() => {
-    cargarTodos()
-    $(".articulo_id").hide()
     $("#form").hide()
-    $("#id").hide()
+    cargarTodos()
 })
 
 
@@ -21,7 +19,7 @@ let cargarTodos = () => {
                             <p>${art.cuerpo}</p>
                             <footer class="blockquote-footer">
                                 ${art.autor}
-                                <i class="fa fa-pencil mx-1"></i>
+                                <i class="fa fa-pencil mx-1" onclick="editar(${art.id},'${art.autor}','${art.titulo}','${art.cuerpo}')"></i>
                                 <i class="fa fa-trash mx-1" onclick="eliminar(${art.id})"></i>
                             </footer>
                         </blockquote>
@@ -33,6 +31,19 @@ let cargarTodos = () => {
     });
 }
 
+$("#nuevo").click(() => $("#form").toggle(500))
+
+let editar = (id, autor, titulo, cuerpo) => {
+    $("#id").val(id)
+    $("#autor").val(autor)
+    $("#titulo").val(titulo)
+    $("#cuerpo").val(cuerpo)
+    let visible = $("#form").is(":visible")
+    if (!visible) {
+        $("#form").toggle(500)
+    }
+}
+
 let eliminar = (id) => {
     $(`#${id}`).addClass("animate__animated animate__backOutRight");
     $.post('backend/delete.php', { id }, (resp) => {
@@ -40,19 +51,45 @@ let eliminar = (id) => {
     });
 }
 
-$("#nuevo").click(() => {
-    $("#form").toggle(500)
-})
+let vaciar = () => {
+    $("#id").val(null)
+    $("#autor").val("")
+    $("#titulo").val("")
+    $("#cuerpo").val("")
+}
 
 $("#form").submit((e) => {
     e.preventDefault()
-    const data = {
-        autor: $("#autor").val(),
-        titulo: $("#titulo").val(),
-        cuerpo: $("#cuerpo").val()
+    let id = $("#id").val()
+    if (id === "") {
+        const data = {
+            autor: $("#autor").val(),
+            titulo: $("#titulo").val(),
+            cuerpo: $("#cuerpo").val()
+        }
+        $.post('backend/create.php', data, (resp) => {
+            cargarTodos()
+            $("#id").val(null)
+            $("#autor").val("")
+            $("#titulo").val("")
+            $("#cuerpo").val("")
+            $("#form").toggle(500)
+        });
+    } else {
+        const data = {
+            id: $("#id").val(),
+            autor: $("#autor").val(),
+            titulo: $("#titulo").val(),
+            cuerpo: $("#cuerpo").val()
+        }
+        $.post('backend/update.php', data, (resp) => {
+            cargarTodos()
+            $("#id").val(null)
+            $("#autor").val("")
+            $("#titulo").val("")
+            $("#cuerpo").val("")
+            $("#form").toggle(500)
+        });
     }
-    $.post('backend/form.php', data, (resp) => {
-        cargarTodos()
-        $("#form").toggle(500)
-    });
+
 })
