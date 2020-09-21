@@ -4,7 +4,7 @@ include('database.php');
 
 $val = $_POST['val'];
 
-$sql = "SELECT * FROM ARTICULOS WHERE TITULO LIKE '%$val%'";
+$sql = "SELECT * FROM articulos WHERE titulo LIKE '%$val%'";
 $result = mysqli_query($connection, $sql);
 if(!$result){
     die('Error en la consulta -> '.mysqli_error($connection));

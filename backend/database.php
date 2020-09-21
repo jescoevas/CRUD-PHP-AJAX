@@ -1,9 +1,9 @@
 <?php
 
-$host="localhost";
-$database="articulos_php_ajax";
-$user="root";
-$password="";
+$host="bopvokognbfbykurhvqb-mysql.services.clever-cloud.com";
+$database="bopvokognbfbykurhvqb";
+$user="uacv7b2uqxh6jbl7";
+$password="JHgFyXCVKhc5DOcJkzUt";
 
 $connection= mysqli_connect($host, $user, $password);
 
