@@ -60,9 +60,21 @@ let editar = (id, autor, titulo, cuerpo) => {
 }
 
 let eliminar = (id) => {
-    $(`#${id}`).addClass("animate__animated animate__backOutRight");
-    $.post('backend/delete.php', { id }, (resp) => {
-        cargarTodos()
+    $.confirm({
+        title: 'Eliminación de artículo',
+        content: '¿Está usted seguro?',
+        buttons: {
+            confirmar: function() {
+                $.alert('Artículo eliminado');
+                $(`#${id}`).addClass("animate__animated animate__backOutRight");
+                $.post('backend/delete.php', { id }, (resp) => {
+                    cargarTodos()
+                });
+            },
+            cancelar: function() {
+
+            }
+        }
     });
 }
 
@@ -84,6 +96,7 @@ $("#form").submit((e) => {
                 cuerpo: $("#cuerpo").val()
             }
             $.post('backend/create.php', data, (resp) => {
+                $.alert('Artículo registrado');
                 cargarTodos()
                 vaciar()
                 $("#form").toggle(500)
@@ -96,6 +109,7 @@ $("#form").submit((e) => {
                 cuerpo: $("#cuerpo").val()
             }
             $.post('backend/update.php', data, (resp) => {
+                $.alert('Artículo editado');
                 cargarTodos()
                 vaciar()
                 $("#form").toggle(500)
